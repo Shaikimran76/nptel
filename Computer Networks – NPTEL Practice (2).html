@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Computer Networks – NPTEL Practice</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#eef0f3;--card:#fff;--text:#1f2933;--muted:#616e7c;--line:#cfd6dd;--head:#2b3a4a;--hover:#f4f6f8;
+--okbg:#e3f4e6;--okbd:#3c9a4e;--oktx:#1d5e2b;--nobg:#fbe5e4;--nobd:#d0453f;--notx:#8f2a25;--btn:#2b3a4a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15191d;--card:#1f252b;--text:#e4e8ec;--muted:#98a3ae;--line:#38424c;--head:#10151a;--hover:#272f37;--okbg:#1a3322;--okbd:#4aa65d;--oktx:#b5e3bf;--nobg:#3a1f1e;--nobd:#d0574f;--notx:#f0bab6;--btn:#4a5b6d}}
+:root[data-theme="dark"]{--bg:#15191d;--card:#1f252b;--text:#e4e8ec;--muted:#98a3ae;--line:#38424c;--head:#10151a;--hover:#272f37;--okbg:#1a3322;--okbd:#4aa65d;--oktx:#b5e3bf;--nobg:#3a1f1e;--nobd:#d0574f;--notx:#f0bab6;--btn:#4a5b6d}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+header{background:var(--head);color:#fff;padding:14px 16px}
+header div{max-width:720px;margin:auto;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:15px}
+header b{font-weight:600}
+main{max-width:720px;margin:16px auto;padding:0 12px}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:12px}
+.bar i{display:block;height:100%;background:var(--btn);width:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:20px}
+.meta{color:var(--muted);font-size:13px;margin-bottom:8px}
+h2{font-size:18px;font-weight:600;margin:0 0 16px;line-height:1.45}
+.opt{display:block;width:100%;text-align:left;font:inherit;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:5px;padding:11px 14px;margin-bottom:9px;cursor:pointer}
+.opt:hover:not(:disabled){background:var(--hover)}
+.opt:disabled{cursor:default}
+.opt.sel{border-color:var(--btn);background:var(--hover)}
+.meta.h{margin:-6px 0 12px}
+.fb{margin-top:6px;padding:12px 14px;border-radius:5px;border:1px solid var(--line);background:var(--hover);font-size:15px}
+.fb p{margin:6px 0 0}.fb.gd b{color:var(--oktx)}.fb.bd b{color:var(--notx)}
+.opt.ok{background:var(--okbg);border-color:var(--okbd);color:var(--oktx)}
+.opt.no{background:var(--nobg);border-color:var(--nobd);color:var(--notx)}
+.nav{display:flex;justify-content:space-between;margin-top:14px;gap:10px}
+.btn{font:inherit;background:var(--btn);color:#fff;border:0;border-radius:5px;padding:9px 20px;cursor:pointer}
+.btn.alt{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn:disabled{opacity:.4;cursor:default}
+.big{font-size:40px;font-weight:600;margin:6px 0}
+:root{--bg:#f2f4f7;--line:#d5dbe2;--hover:#f3f5f8;--sh:0 1px 2px rgba(16,24,40,.06),0 2px 8px rgba(16,24,40,.05)}
+body{-webkit-font-smoothing:antialiased}
+header{padding:16px}header b{font-size:17px;letter-spacing:.2px}
+#score{background:rgba(255,255,255,.12);padding:3px 12px;border-radius:20px;font-size:14px}
+main{max-width:1040px;padding:0 16px;margin:20px auto}
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:20px;align-items:start}
+.card{box-shadow:var(--sh);padding:26px;border-radius:10px}
+.card.in{animation:in .28s ease-out}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.bar{height:8px;border-radius:4px}.bar i{transition:width .4s ease}
+h2{font-size:20px}
+.opt{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border-radius:8px;transition:background .15s,border-color .15s,transform .1s,box-shadow .15s}
+.opt:hover:not(:disabled){border-color:var(--btn);box-shadow:var(--sh)}
+.opt:active:not(:disabled){transform:scale(.99)}
+.opt .k{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:13px;font-weight:600;color:var(--muted)}
+.opt.ok .k{background:var(--okbd);border-color:var(--okbd);color:#fff}
+.opt.no .k{background:var(--nobd);border-color:var(--nobd);color:#fff}
+.opt.sel .k{background:var(--btn);border-color:var(--btn);color:#fff}
+.opt.ok{animation:pop .3s ease-out}.opt.no{animation:shk .3s ease-out}
+@keyframes pop{50%{transform:scale(1.008)}}
+@keyframes shk{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.fb{animation:in .3s ease-out;border-left:4px solid var(--line)}
+.fb.gd{background:var(--okbg);border-left-color:var(--okbd)}.fb.bd{background:var(--nobg);border-left-color:var(--nobd)}
+#os>.btn{margin-top:4px}
+.btn{border-radius:8px;padding:10px 22px;font-weight:600;transition:transform .1s,filter .15s,box-shadow .15s,background .15s}
+.btn:hover:not(:disabled){filter:brightness(1.12);box-shadow:var(--sh)}
+.btn:active:not(:disabled){transform:scale(.97)}
+.btn.alt:hover:not(:disabled){background:var(--hover);filter:none}
+.btn:focus-visible,.opt:focus-visible,.gc:focus-visible{outline:2px solid var(--btn);outline-offset:2px}
+.nav{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.side{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:var(--sh);position:sticky;top:12px}
+.side h3{margin:0 0 12px;font-size:13px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.gr{display:grid;grid-template-columns:repeat(auto-fill,minmax(34px,1fr));gap:6px;max-height:60vh;overflow:auto}
+.gc{font:inherit;font-size:13px;height:34px;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:6px;cursor:pointer;transition:background .15s,transform .1s}
+.gc:hover{background:var(--hover)}.gc:active{transform:scale(.94)}
+.gc.ok{background:var(--okbg);border-color:var(--okbd);color:var(--oktx)}.gc.no{background:var(--nobg);border-color:var(--nobd);color:var(--notx)}
+.gc.cur{outline:2px solid var(--btn);outline-offset:1px;font-weight:700}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}.side{position:static}main{padding:0 10px;margin-top:12px}.card{padding:18px 16px}h2{font-size:18px}.gr{max-height:none}
+.nav{position:sticky;bottom:0;background:var(--card);margin:18px -16px 0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));border-radius:0 0 10px 10px}.btn{flex:1}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<header><div><b>Computer Networks – NPTEL Practice</b><span id="score"></span></div></header>
+<main><div class="wrap"><div><div class="bar"><i id="pb"></i></div><div class="card" id="c"></div></div><aside class="side" id="g"></aside></div></main>
+<script>
+const D=[
+[["What is a computer network?",["A single computer system","A collection of interconnected devices that can communicate and share resources","A software program used to browse the internet","A type of computer virus"],1],
+["What was the first successful message sent over ARPANET?",["HELLO","LOGIN","PASSWORD","TEST"],1],
+["If you have 4 hops (N = 4), 15 packets (P = 15), and each packet takes 2 ms to transmit, what is the total transmission time in a packet-switched network (store-and-forward)?",["22 ms","36 ms","40 ms","46 ms"],1],
+["Transmission delay is defined as the time required to:",["Travel from source to destination across the medium","Process the packet header at a router","Wait in a queue before transmission","Push all bits of a packet onto the transmission link"],3],
+["Which network is considered the predecessor of the modern Internet?",["ARPANET","Ethernet","Extranet","Intranet"],0],
+["Consider a network path with three links having bandwidths of 10 Mbps, 100 Mbps, and 5 Mbps. What is the maximum throughput of the path?",["5 Mbps","10 Mbps","100 Mbps","115 Mbps"],0],
+["What is the main advantage of packet switching over circuit switching?",["No packet loss","Fixed transmission delay","Dedicated bandwidth throughout communication","More efficient utilization of network resources"],3],
+["Consider a 100 Mbps link. In a circuit-switching network, each user requires 25 Mbps of dedicated bandwidth. In a packet-switching network, each user also requires 25 Mbps when transmitting but is active only 10% of the time. Which statement is correct?",["Circuit switching can support 4 users, and packet switching can support 4 users","Circuit switching can support 4 users, and packet switching can support 40 users","Circuit switching can support 40 users, and packet switching can support 4 users","Circuit switching can support 10 users, and packet switching can support 100 users"],1],
+["If a packet of 200 bytes is sent over a link with a capacity of 1 Mbps over a distance of 2000 km, what are the transmission delay, propagation delay, and total delay? Assume the propagation speed is 2.8 × 10⁸ m/s.",["Transmission = 1.6 ms, Propagation = 7.14 ms, Total = 8.74 ms","Transmission = 1.6 ms, Propagation = 10 ms, Total = 11.6 ms","Transmission = 2.0 ms, Propagation = 7.14 ms, Total = 9.14 ms","Transmission = 1.6 ms, Propagation = 14.28 ms, Total = 15.88 ms"],0],
+["For bursty data traffic (e.g., web browsing), which switching technique is more suitable and why?",["Circuit switching, because it provides dedicated bandwidth","Packet switching, because it uses resources only when data is sent","Circuit switching, because it has lower delay","Both packet and circuit switching are equally suitable"],1]],
+[["Which OSI layer is responsible for routing and logical addressing?",["Data Link Layer","Network Layer","Transport Layer","Session Layer"],1],
+["Which function is performed by the Presentation Layer of the OSI model?",["Error detection and correction","Flow control","Routing and addressing","Data encryption, compression, and formatting"],3],
+["How many layers are there in the OSI Reference Model?",["4","5","7","8"],2],
+["In the TCP/IP model, what is the data unit called at the Transport Layer?",["Frame","Packet","Bit","Segment"],3],
+["Which of the following protocols operate at the Application Layer?",["IP","TCP","HTTP","Ethernet"],2],
+["When data moves from the Application Layer down to the Physical Layer in the OSI model, what happens to the data at each layer?",["It is secured","Headers are added (encapsulation)","Headers are removed (decapsulation)","It is encrypted at every layer"],1],
+["In the OSI model, which layer adds neither a header nor a trailer to the data it receives from the upper layer?",["Transport Layer","Network Layer","Data Link Layer","Physical Layer"],3],
+["Both the Data Link Layer and the Transport Layer provide error detection. What is the key difference between them?",["Data Link Layer detects errors; Transport Layer corrects errors.","Data Link Layer provides hop-by-hop error detection; Transport Layer provides end-to-end error detection.","Data Link Layer provides end-to-end error detection; Transport Layer provides hop-by-hop error detection.","Transport Layer only detects errors in TCP, not UDP."],1],
+["In the TCP/IP model, the single Application Layer combines the functionality of which OSI layers?",["Application, Presentation, and Session","Application, Transport, and Network","Presentation, Session, and Transport","Application, Data Link, and Physical"],0],
+["Which layer of the TCP/IP model is responsible for delivering incoming data to the correct application process based on port numbers?",["Application Layer","Internet Layer","Transport Layer","Network Access Layer"],2]],
+[["Which protocol is primarily used to transfer web pages between a client and a web server?",["DNS","FTP","HTTP","SMTP"],2],
+["What is the primary function of DNS?",["Transfer files between computers","Encrypt network traffic","Manage email delivery","Convert domain names into IP addresses"],3],
+["Which of the following is an example of a text-based protocol?",["HTTP/2","DNS","HTTP/1.1","MQTT"],2],
+["Which of the following is a binary protocol?",["HTTP/2","DHCP","HTTP/1.1","SMTP"],0],
+["What is a non-persistent HTTP connection?",["A single TCP connection is used for multiple requests","A new TCP connection is established for each HTTP request/response","No TCP connection is required","The connection remains open indefinitely"],1],
+["A client establishes a connection, requests the homepage, receives it, and then requests the logo image on the same connection. The server keeps the connection open for future requests. What is this HTTP behavior called?",["Persistent HTTP","Non-persistent HTTP","HTTP with connection close","Stateless HTTP"],0],
+["Which HTTP method is mainly used to retrieve data from a server?",["POST","PUT","GET","DELETE"],2],
+["Which character encoding is commonly used by text-based protocols?",["Unicode","Binary Coded Decimal","EBCDIC","ASCII or UTF-8"],3],
+["A user submits a form on a website, but the server cannot understand the request because the data format is incorrect. Which status code will the server return?",["200","201","400","404"],2],
+["In non-persistent HTTP, how many TCP connections are required to fetch a web page with 10 images?",["1","10","11","12"],2]],
+[["In a file-sharing application like BitTorrent, users download a file from multiple other users while simultaneously uploading the files they already have. This scenario best reflects the:",["Client-Server model","Centralized model","Distributed model","Peer-to-Peer model"],3],
+["A client sends 5 pipelined requests on a persistent connection (HTTP/1.1). The second request takes long time to process. What will happen to the remaining requests?",["The first request is delayed","All subsequent responses are delayed waiting for the second response","The connection is automatically closed","The server drops all requests"],1],
+["A client sends requests R1, R2, and R3 over a single HTTP/2 connection, where R2 is a large file. What is the expected behavior?",["R3 must wait until R2 is completely transferred","The server closes the connection after sending R1","A separate TCP connection is created for R3","R1, R2, and R3 are transmitted as independent streams, so R3 is not blocked by R2"],3],
+["Which statement about HTTP/2 is TRUE?",["HTTP/2 uses binary framing and supports multiplexing","HTTP/2 replaces multiplexing with pipelining","HTTP/2 removes HTTP status codes","HTTP/2 cannot use persistent connections"],0],
+["A user enters www.nptel.ac.in into a web browser. The DNS resolver has no cached record. Which sequence of DNS servers is contacted to resolve the domain name?",["Root DNS Server, TLD Server, Authoritative DNS Server","TLD Server, Root DNS Server, Authoritative DNS Server","Authoritative DNS Server, Root DNS Server, TLD Server"],0],
+["In HTTP/3, when a single packet is lost during a video stream, only that specific stream is affected while others continue. Which protocol makes this possible?",["TCP","UDP with QUIC","HTTP/1.1","FTP"],1],
+["How does the DASH client determine which quality chunk to request next?",["It randomly selects any available quality video chunk","It always requests the highest quality video chunk available","It periodically estimates server-to-client bandwidth and chooses the maximum coding rate sustainable at that time","It requests the lowest quality video chunk to save data always"],2],
+["A streaming service stores copies of video chunks on multiple geographically distributed servers. What is the primary purpose of this approach?",["To eliminate DNS lookups","To reduce latency and improve streaming performance","To increase the quality of video chunks","To reduce the number of video chunks needed"],1],
+["A user requests a video file from the nearest CDN edge server. The requested file is not available in the edge server’s cache. What happens next?",["The user receives a “File Not Found” error","The user must establish a new connection and try another nearest CDN server","The user must establish a new connection and download the file directly from the origin server","The CDN edge server retrieves the file from the origin server/another CDN server, delivers it to the user, and may cache it for future requests"],3],
+["A file-sharing application allows users to contribute their own storage and bandwidth while downloading files from other users. Which concept does this illustrate?",["Client-Server","Peer-to-Peer","Centralized Database","Cloud Computing"],1]],
+[["Which of the following are NOT essential services offered by a transport layer protocol? (select all that apply)",["Multiplexing","Segmentation","Error detection","Error correction"],[2,3]],
+["Following is the name assigned to the data unit at the transport layer:",["Packet","Chunk","Segment","Frame"],2],
+["Multiplexing and demultiplexing with TCP connection happens with:",["Source and Destination port numbers","Source and Destination port numbers and Source and Destination IP addresses","Source and Destination IP addresses","Source IP address and Destination port number"],1],
+["Which statement best describes multiplexing and demultiplexing in the User Datagram Protocol (UDP)?",["Multiplexing combines data from multiple applications into UDP segments using source port numbers, while demultiplexing delivers received segments to the correct application using the destination port number.","Multiplexing encrypts UDP data before transmission, while demultiplexing decrypts it at the receiver.","Multiplexing guarantees reliable delivery of UDP packets, while demultiplexing detects and retransmits lost packets.","Multiplexing fragments large UDP packets, while demultiplexing reassembles them at the destination."],0],
+["Which of the following are true w.r.t UDP: (select all that apply)",["It incurs one RTT time for connection establishment","It does not incur any RTT for connection establishment","It has smaller header size compared to TCP","It does not provide error detection capabilities"],[1,2]],
+["Which of the following application layer protocols use UDP: (select all that apply)",["DNS","SNMP","HTTP","ARP"],[0,1]],
+["Which of the following fields are included in the UDP pseudo header during UDP checksum calculation?",["Source IP Address, Destination IP Address, Protocol Number, UDP Length","Source MAC Address, Destination MAC Address, Protocol Number, UDP Checksum","Source IP Address, Destination IP Address, Source Port, Destination Port","Source MAC Address, Destination MAC Address, Source Port, Destination Port"],0],
+["The UDP pseudo header primarily provides protection against:",["Packet losses","IP packet errors","Protocol errors","Misrouted packets"],3],
+["Which of the following Python statements correctly creates a UDP socket?",["s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)","s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)","s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)","s = socket.socket(socket.AF_PACKET, socket.SOCK_RAW)"],1],
+["In the following code snippet of a UDP socket, following detect the end of the file transfer?",["name, addr = s.recvfrom(1024)","if d == b'EOF': break","f.write(d)","f.close()"],1]],
+[["Which of the following is not a type of error or issue encountered during network data transmission?",["Bit errors","Burst errors","Packet drops","Arithmetic overflow"],3],
+["A sender transmits the following bit sequence 11010110 and the receiver receives 11011110. What type of error has occurred during transmission?",["Bit error","Byte error","Burst error","No error"],0],
+["A sender transmits the packets in the following order P1, P2, P3, P4, P5, P6 and the receiver receives the packets as P1, P3, P2, P5, P6. Which of the following correctly identifies the transmission issues?",["Only packet loss has occurred","Only out-of-order delivery has occurred","Packet loss and out-of-order delivery have occurred","Duplicate packets and packet loss have occurred"],2],
+["Which of the following is an assumption made by the rdt 2.0 (Reliable Data Transfer 2.0) protocol?",["Packets may be lost during transmission","The channel may introduce bit errors, but packets are never lost","Both packet loss and corruption may occur","ACK/NAK messages may get corrupted or lost"],1],
+["Which of the following correctly describes the difference between ACK and NACK in reliable data transfer protocols?",["ACK indicates packet corruption, while NACK indicates successful reception","ACK indicates successful reception of a packet, while NACK indicates that a packet was not received correctly or is corrupted","Both ACK and NACK indicate successful reception, but with different priorities","ACK and NACK are used only for detecting packet loss, not errors"],1],
+["rdt 3.0 is designed to operate over unreliable channels that may introduce bit errors and packet loss. However, duplicate packets may still be received due to retransmissions. How does rdt 3.0 handle such duplicate packets?",["It ignores packet loss but delivers duplicates to the application layer","It prevents duplicates by ensuring packets are never retransmitted","It uses sequence numbers to detect and discard duplicate packets at the receiver","It relies on ACK only and does not use any mechanism for duplicates"],2],
+["What is the primary mechanism used in rdt 3.0 to detect packet loss during transmission?",["Timer","Sequence numbers","ACK/NAK mismatch","Packet reordering"],0],
+["A video streaming server is sending data to a client over a high-speed network. The link has a bandwidth of 120 Mbps, and the round-trip time (RTT) between the server and client is 80 ms. What is the Delay Bandwidth Product (DBP) for this network link?",["9.6 Mb","12 Mb","960 Mb","0.96 Mb"],0],
+["In the Go-Back-N protocol the receiver on receipt of out-of-order packet does the following: (select all that apply)",["Can discard the packet","Re-ACK pkt with highest in-order seq #","send a NACK","Send nothing"],[0,1]],
+["A sender uses Selective Repeat ARQ with a window size of 4 and sequence numbers from 0 to 7. The sender transmits packets 0, 1, 2, 3. If packet 1 is lost, while packets 0, 2, and 3 are received correctly and buffered at the receiver. Assume individual ACKs are used, and only the lost packet is retransmitted. How many total transmissions are required to correctly deliver all packets?",["4","5","6","7"],1]],
+[["Why does TCP use sequence numbers?",["To encrypt transmitted data","To identify applications","To enable reliable and ordered delivery of data","To determine the IP address of the receiver"],2],
+["A TCP Reno sender is in the congestion avoidance phase with a congestion window (cwnd) of 24 MSS and a slow-start threshold (ssthresh) of 16 MSS. It receives three duplicate ACKs. What will be the new values of cwnd and ssthresh immediately after this event?",["cwnd = 24 MSS, ssthresh = 12 MSS","cwnd = 12 MSS, ssthresh = 12 MSS","cwnd = 15 MSS, ssthresh = 12 MSS","cwnd = 1 MSS, ssthresh = 12 MSS"],1],
+["A TCP receiver advertises a receive window of 8000 bytes. The sender has transmitted bytes up to sequence number 9500 and has received an ACK up to sequence number 2000. How many additional bytes can the sender transmit immediately without violating the receiver’s flow control limit?",["500 bytes","1500 bytes","6000 bytes","7500 bytes"],0],
+["A TCP Tahoe connection is in the congestion avoidance phase with a congestion window (cwnd) of 20 MSS and a slow-start threshold (ssthresh) of 16 MSS. A retransmission timeout (RTO) occurs. What will be the new values of cwnd and ssthresh, and which phase will the connection enter next?",["cwnd = 1 MSS, ssthresh = 10 MSS, enters Slow Start","cwnd = 10 MSS, ssthresh = 10 MSS, enters Congestion Avoidance","cwnd = 13 MSS, ssthresh = 16 MSS, enters Fast Recovery","cwnd = 20 MSS, ssthresh = 16 MSS, remains in Congestion Avoidance"],0],
+["A TCP receiver has a receive buffer size of 10,000 bytes. The last byte received is 8,500, and the last byte read by the receiving application is 3,500. What advertised window (rwnd) value should the receiver send?",["1500 bytes","2500 bytes","5000 bytes","8500 bytes"],2],
+["Assume that the TCP sender’s window size permits the transmission of four TCP segments. Which statement is correct?",["The sender must receive an ACK after every segment before transmitting the next segment","The sender can transmit up to four TCP segments before waiting for acknowledgments.","The sender can transmit only one TCP segment at a time","The sender retransmits every segment immediately after transmission"],1],
+["A TCP connection has a congestion window (cwnd) of 12,000 bytes and a receiver advertised window (rwnd) of 8,000 bytes. The sender has transmitted data up to byte 15,000 and has received ACKs up to byte 9,000. How much more data can the sender transmit?",["2000 bytes","3000 bytes","4000 bytes","6000 bytes"],0],
+["What is the primary purpose of TCP flow control?",["Prevent packet corruption during transmission","Prevent the sender from overwhelming the receiver","Prevent congestion in the network routers","Prevent unauthorized access to transmitted data"],1],
+["A TCP connection begins in the Slow Start phase with an initial congestion window (cwnd) of 1 MSS. Assuming no packet loss occurs, what will be the value of cwnd after 4 RTTs?",["4 MSS","8 MSS","16 MSS","32 MSS"],2],
+["In an implicit congestion notification mechanism, the sender typically detects network congestion based on:",["Router generated congestion messages","The ECE flag set in the TCP header","The receiver’s advertised window (rwnd)","Packet loss or increased round-trip delay"],3]],
+[["Which of the following is the primary function of forwarding in the network layer?",["Selecting the shortest path between networks","Assigning IP addresses to hosts","Detecting transmission errors","Moving packets from an input link to the appropriate output link"],3],
+["If a router’s output buffer is full and a new packet arrives, which drop policy is typically applied, where the newest packet is dropped?",["Random Early Detection","Tail Drop","Priority Drop","Head Drop"],1],
+["A router’s forwarding table contains the following entries: [192.168.0.0/16, 192.168.10.0/24, 192.168.10.128/25]. A packet destined for 192.168.10.144 arrives. Which entry will be used for forwarding?",["192.168.0.0/14","192.168.0.0/16","192.168.10.0/24","192.168.10.128/25"],3],
+["If the switching fabric is slower than the combined input port rates, what may occur?",["Packet duplication","Queueing at input ports","Packet encryption","Routing loops"],1],
+["Which scheduling algorithm allocates bandwidth fairly while assigning different weights to different traffic classes?",["Tail drop","Round robin","Priority scheduling","Weighted fair queueing"],3],
+["In the input port of a router, what functions are typically performed?",["Packet scheduling and output queueing","Routing algorithm calculation and forwarding table updates","Line termination, decapsulation, and forwarding table lookup","Segmentation and reassembly of data"],2],
+["Output buffering is required when:",["Output link speed is greater than arrival rate","Routers have empty queues","Routing tables become full","Arrival rate exceeds output link transmission speed"],3],
+["Why is Longest Prefix Matching used in IP routing?",["It always selects the route with the fewest network hops","It is required by the TCP protocol to establish a connection","It allows routers to forward packets using only the destination MAC address","It is necessary because of the hierarchical and classless nature of IP addressing to select the most specific matching route"],3],
+["What is the primary function of a Ternary Content Addressable Memory (TCAM) in a modern router?",["To store routing tables and perform Longest Prefix Matching in a single clock cycle","To perform routing calculations for the control plane","To buffer packets that are experiencing output port contention","To convert IP addresses from decimal to binary format"],0],
+["A router’s forwarding table is provided. For a packet destined to IP address 10.1.2.99, which port will the router use? (The table was not in your notes.)",["Port 1","Port 2","Port 3","Port 4"],1]],
+[["Which routing algorithm requires every router to have complete knowledge of the network topology?",["Distance vector","Link state","RIP","DHCP"],1],
+["In Poisoned Reverse, if y is the next hop for z to reach destination x, what does z advertise to y?",["The normal distance to x","A reduced metric to x","That its distance to x is infinity","A better alternative path"],2],
+["Which loop prevention technique prevents advertising a route back to the router from which it was learned?",["Route poisoning","Dijkstra algorithm","HELLO protocol","Split horizon"],3],
+["The Count-to-Infinity problem is associated with:",["OSPF","DHCP","Distance Vector Routing","IS-IS"],2],
+["How often does RIP send routing updates by default?",["Every 15 seconds","Every 30 seconds","Every 60 seconds","Every 90 seconds"],1],
+["In Distance Vector routing, what is the meaning of “Triggered Update”?",["Propagating link failure information immediately","Sending updates exactly every 30 seconds","Updating the routing table every 15 hops","Sending HELLO messages continuously"],0],
+["What happens when HELLO messages stop arriving in OSPF?",["The router continues normal operation","The neighbor is considered down and routes are recalculated","The router initiates a DHCP request","The router increases its hop count"],1],
+["RIP uses which transport protocol and port number?",["TCP 80","TCP 179","UDP 520","UDP 53"],2],
+["What is the maximum valid hop count allowed in RIP?",["14","15","16","30"],1],
+["Which of the following is NOT a characteristic of Link State routing?",["Routers share entire routing tables with neighbors","Routers calculate shortest path using Dijkstra","Routers maintain a synchronized view of network topology","Routers exchange link-state databases"],0]],
+[["What port does BGP use to establish TCP sessions between routers?",["53","80","179","443"],2],
+["What information does BGP advertise?",["MAC addresses","IP prefixes and path information","DNS records","VLAN IDs"],1],
+["Which ICMPv6 protocol replaces ARP in IPv6 networks?",["IGMP","DHCPv6","DNS","NDP"],3],
+["Which BGP message is exchanged first after a TCP connection is established?",["UPDATE","KEEPALIVE","OPEN","ECHO"],2],
+["Which BGP message is used to maintain an established session?",["OPEN","UPDATE","RESET","KEEPALIVE"],3],
+["Hot Potato Routing selects the:",["Closest NEXT-HOP router","Longest AS-PATH","Highest bandwidth link","Lowest router ID"],0],
+["ICMP messages are encapsulated inside:",["TCP segments","IP packets","UDP datagrams","Ethernet frames only"],1],
+["Which network utility uses ICMP Echo Request and Echo Reply messages?",["FTP","Telnet","SMTP","Ping"],3],
+["Which ICMP message informs a host about a better route to a destination?",["Destination Unreachable","Time Exceeded","Redirect","Parameter Problem"],2],
+["Which ICMP message is generated when a packet’s TTL expires?",["Destination Unreachable","Time Exceeded","Redirect","Echo Reply"],1]],
+[["Which of the following is NOT a primary service provided by the Link Layer?",["Framing","Error detection","Reliable delivery over a link","End-to-end process communication"],3],
+["In CSMA, what does a station do before transmitting?",["Listens to the channel to check if another device is transmitting","Sends a request to the receiver","Waits for a token to arrive","Divides the channel into frequency bands"],0],
+["A collision occurs when:",["A frame reaches its destination","A router drops a packet","A switch receives duplicate MAC addresses","Two or more stations transmit simultaneously on a shared medium"],3],
+["In RTS/CTS communication, which message is sent first?",["CTS","RTS","ACK","DATA"],1],
+["Which technique adds redundant bits so that some errors can be corrected without retransmission?",["ARQ","CRC","Forward Error Correction","Backward Error Correction"],2],
+["Which error detection technique is especially effective at detecting burst errors?",["Simple parity","Two-dimensional parity","Checksum","Cyclic Redundancy Check"],3],
+["What is the function of the jam signal in CSMA/CD?",["To start transmission","To indicate a successful transmission","To inform all stations about a collision","To request retransmission from the sender"],2],
+["What is two-dimensional parity checking used for?",["Flow control","Forward error correction","Link access control","Framing"],1],
+["Why is error detection performed at every hop in the Link Layer?",["To replace transport-layer reliability","To reduce packet size","To reduce routing complexity","To discard corrupted frames early and avoid wasting network resources"],3],
+["Wireless networks require stronger error detection because they are more affected by:",["Encryption","Routing loops","Interference","IP fragmentation"],2]],
+[["A MAC address is typically how many bits long?",["16 bits","32 bits","48 bits","64 bits"],2],
+["Traffic between different VLANs requires the use of a:",["Bridge","Hub","Repeater","Layer 3 device"],3],
+["What does an ARP cache store?",["Port numbers and socket information","IP address and MAC address pairs","Domain names and IP addresses","Routes to different networks"],1],
+["The main function of a MAC address is to:",["Identify websites","Route packets across the Internet","Deliver frames within the same LAN","Assign IP addresses"],2],
+["How is an ARP request sent to all hosts on a LAN?",["As a unicast message to the router","As a broadcast message","As a multicast message to a specific group","As a unicast message to all hosts sequentially"],1],
+["Which protocol maps an IP address to a MAC address?",["DHCP","DNS","ARP","ICMP"],2],
+["A network administrator creates VLAN 10 for the Computer Science Department and VLAN 20 for the Electrical Department on the same switch. PC X belongs to VLAN 10, and PC Y belongs to VLAN 20. PC X sends an ARP broadcast. What happens to the ARP broadcast?",["It is received by all devices in both VLAN 10 and VLAN 20","It is received only by devices in VLAN 10","It is received only by PC Y in VLAN 20","It is discarded by the switch"],1],
+["Which transmission mode allows simultaneous communication in both directions?",["Simplex","Half duplex","Full duplex","Broadcast"],2],
+["What is the technique used to convert binary data into digital signals for transmission?",["Modulation","Encryption","Demodulation","Line coding"],3],
+["Which technology became the dominant LAN technology?",["Ethernet","Token Ring","ATM","FDDI"],0]]
+];
+const E=[
+"A network is a set of interconnected devices that communicate and share resources.",
+"The first ARPANET message was meant to be LOGIN (the system crashed after the first two letters, LO).",
+"Store-and-forward total time = (N + P − 1) × t = (4 + 15 − 1) × 2 ms = 36 ms.",
+"Transmission delay = L / R, the time needed to push every bit of the packet onto the link.",
+"ARPANET (1969) was the first packet-switched network and the ancestor of the Internet.",
+"Path throughput is limited by the slowest link (the bottleneck), which is 5 Mbps.",
+"Packet switching shares links statistically, so capacity is used only when data is actually sent.",
+"Circuit switching: 100 / 25 = 4 users. Packet switching: users are active only 10% of the time, so about 4 / 0.1 = 40 users can share the link.",
+"Transmission = 1600 bits / 1 Mbps = 1.6 ms. Propagation = 2×10⁶ m / 2.8×10⁸ m/s = 7.14 ms. Total = 8.74 ms.",
+"Bursty traffic would leave a reserved circuit idle most of the time; packet switching uses resources only when data is sent.",
+"The Network layer handles logical (IP) addressing and routing between networks.",
+"The Presentation layer handles data translation, encryption, compression and formatting.",
+"The OSI model has 7 layers: Physical, Data Link, Network, Transport, Session, Presentation, Application.",
+"The Transport layer data unit is the segment (TCP). Packet is Network layer, frame is Data Link layer.",
+"HTTP is an application layer protocol. IP is Network, TCP is Transport, Ethernet is Data Link.",
+"Going down the stack, each layer wraps the data with its own header. This is called encapsulation.",
+"The Physical layer sends raw bits, so it adds no header or trailer.",
+"The Data Link layer checks errors on each hop; the Transport layer checks end-to-end between the two hosts.",
+"The TCP/IP Application layer combines the OSI Application, Presentation and Session layers.",
+"The Transport layer uses port numbers to hand data to the right application process.",
+"HTTP is the protocol used to transfer web pages between browser and web server.",
+"DNS translates human-readable domain names into IP addresses.",
+"HTTP/1.1 messages are human-readable ASCII text; HTTP/2 is binary.",
+"HTTP/2 uses binary framing; HTTP/1.1, SMTP and DHCP are not binary framed in this sense.",
+"In non-persistent HTTP, a new TCP connection is opened for every request/response pair.",
+"Keeping the connection open to reuse it for further requests is persistent HTTP.",
+"GET is the method used to retrieve a resource from the server.",
+"Text-based protocols encode their messages as ASCII or UTF-8 characters.",
+"400 Bad Request means the server could not understand the request because it was malformed.",
+"One connection for the base HTML page plus one per image: 1 + 10 = 11.",
+"Peers act as both client and server, sharing upload and download. That is the peer-to-peer model.",
+"HTTP/1.1 pipelining must return responses in order, so a slow response blocks the ones behind it (head-of-line blocking).",
+"HTTP/2 multiplexes independent streams over one connection, so a large R2 does not block R3.",
+"HTTP/2 uses binary framing and multiplexes many streams over one persistent connection.",
+"The resolver asks a root server, which refers it to the TLD server (.in), which refers it to the authoritative server for nptel.ac.in.",
+"HTTP/3 runs over QUIC on UDP with independent streams, so a lost packet affects only its own stream.",
+"DASH clients keep measuring bandwidth and request the highest quality rate that the network can currently sustain.",
+"CDNs keep copies close to users, which reduces latency and improves streaming performance.",
+"On a cache miss the edge server fetches the file from the origin (or another CDN node), serves it, and may cache it.",
+"Users contributing storage and bandwidth while also downloading is the peer-to-peer model.",
+"Multiplexing and segmentation are essential transport services. Error detection and correction are extra reliability features that not every transport protocol provides.",
+"The transport layer data unit is called a segment.",
+"A TCP connection is identified by the 4-tuple: source and destination IP addresses plus source and destination ports.",
+"UDP multiplexes using source ports and demultiplexes using the destination port number.",
+"UDP has no handshake, so it needs no RTT to set up, and its 8-byte header is smaller than TCP. It does provide a checksum.",
+"DNS and SNMP typically use UDP. HTTP uses TCP, and ARP is a link-layer protocol.",
+"The pseudo header contains source IP, destination IP, protocol number and UDP length.",
+"The pseudo header lets the receiver detect datagrams delivered to the wrong host (misrouted packets).",
+"SOCK_DGRAM creates a datagram (UDP) socket; SOCK_STREAM is TCP.",
+"The sender sends a final EOF datagram, and the receiver breaks out of its loop when it sees it.",
+"Arithmetic overflow is a computing issue, not a transmission error. Bit errors, burst errors and packet drops all happen in networks.",
+"Only one bit differs (the fifth bit changed from 0 to 1), so it is a single bit error.",
+"P2 and P3 arrive swapped (out of order) and P4 never arrives (loss).",
+"rdt 2.0 assumes bit errors can occur but packets are never lost and ACK/NAK are not corrupted.",
+"ACK confirms correct receipt; NAK tells the sender the packet was corrupted or not received correctly.",
+"Sequence numbers let the receiver recognise a retransmitted packet as a duplicate and discard it.",
+"The sender starts a timer; if it expires without an ACK, the packet is presumed lost and resent.",
+"DBP = bandwidth × RTT = 120 Mbps × 0.08 s = 9.6 Mb.",
+"A Go-Back-N receiver discards out-of-order packets and re-ACKs the highest in-order sequence number.",
+"4 initial transmissions plus 1 retransmission of packet 1 = 5 (Selective Repeat resends only the lost packet).",
+"Sequence numbers let the receiver put data in order and detect loss or duplication, giving reliable ordered delivery.",
+"On three duplicate ACKs Reno halves: ssthresh = 24/2 = 12 and cwnd is set to ssthresh (fast recovery).",
+"Bytes in flight = 9500 − 2000 = 7500. The window is 8000, so 8000 − 7500 = 500 more bytes may be sent.",
+"On a timeout Tahoe sets ssthresh = cwnd/2 = 10, cwnd = 1 MSS, and restarts in slow start.",
+"rwnd = buffer − (last byte received − last byte read) = 10000 − (8500 − 3500) = 5000 bytes.",
+"A window of four segments means the sender may have up to four unacknowledged segments outstanding.",
+"The effective window is min(cwnd, rwnd) = 8000. Data in flight is 15000 − 9000 = 6000, so 2000 bytes remain.",
+"Flow control stops a fast sender from overflowing the receiver buffer.",
+"Slow start doubles cwnd every RTT: 1, 2, 4, 8, 16 after 4 RTTs.",
+"With implicit notification the sender infers congestion from packet loss or rising delay, not from router messages.",
+"Forwarding is the data-plane job of moving a packet from an input port to the correct output port. Choosing paths is routing.",
+"Tail drop discards the newly arriving packet when the buffer is full.",
+"192.168.10.144 matches /16, /24 and /25 (128–255). The longest prefix, /25, is used.",
+"If the fabric is slower than the combined input rate, packets wait in queues at the input ports.",
+"Weighted fair queueing shares bandwidth fairly while giving each class a different weight.",
+"Input ports do line termination, link-layer decapsulation and forwarding table lookup.",
+"Output buffering is needed when packets arrive faster than the output link can transmit them.",
+"Prefixes are hierarchical and classless, so several can match; the most specific (longest) match is chosen.",
+"TCAM compares the address against all prefixes in parallel, so longest prefix match takes one clock cycle.",
+"Using longest prefix match on the forwarding table from your course material, the matching entry points to Port 2. The table itself was not in your notes.",
+"Link state routers each hold the full network topology.",
+"With poisoned reverse, z tells y its distance to x is infinity, because z routes through y.",
+"Split horizon does not advertise a route back out of the interface it was learned from.",
+"Count-to-infinity happens in distance vector routing because bad news propagates slowly.",
+"RIP sends full-table updates every 30 seconds by default.",
+"A triggered update sends a change (such as a link failure) immediately instead of waiting for the timer.",
+"If HELLOs stop for the dead interval, OSPF declares the neighbor down and recomputes routes.",
+"RIP runs over UDP port 520.",
+"RIP allows at most 15 hops; 16 means unreachable.",
+"Sending whole routing tables to neighbors is distance vector behaviour. Link state routers flood link-state information instead.",
+"BGP sessions run over TCP port 179.",
+"BGP advertises IP prefixes together with path attributes such as the AS-PATH.",
+"NDP (Neighbor Discovery Protocol, part of ICMPv6) replaces ARP in IPv6.",
+"OPEN is the first BGP message and sets up session parameters.",
+"KEEPALIVE messages are sent periodically to keep a BGP session up.",
+"Hot potato routing hands traffic to the closest exit point (nearest next hop) to minimise its own cost.",
+"ICMP messages are carried inside IP packets (IP protocol number 1).",
+"Ping sends ICMP Echo Request and waits for Echo Reply.",
+"The ICMP Redirect message tells a host that a better route exists.",
+"When TTL reaches zero the router drops the packet and sends ICMP Time Exceeded (this is what traceroute uses).",
+"End-to-end process communication is a Transport layer service, not a Link layer one.",
+"CSMA means carrier sensing: listen to the channel first and transmit only if it is idle.",
+"A collision is two or more stations transmitting at the same time on a shared medium.",
+"RTS is sent first, then the receiver replies with CTS, followed by DATA and ACK.",
+"Forward Error Correction adds redundant bits so the receiver can fix some errors without retransmission.",
+"CRC uses polynomial division and is very good at catching burst errors.",
+"The jam signal makes sure every station knows a collision happened.",
+"2D parity can locate and therefore correct a single bit error.",
+"Checking each hop lets corrupted frames be dropped early so no resources are wasted forwarding them.",
+"Wireless links suffer more interference, so they need stronger error detection.",
+"MAC addresses are 48 bits long.",
+"VLANs are separate broadcast domains, so traffic between them must go through a Layer 3 device.",
+"An ARP cache stores IP address to MAC address mappings.",
+"MAC addresses are used to deliver frames within the same local network.",
+"An ARP request is broadcast because the target MAC address is not yet known.",
+"ARP maps an IP address to a MAC address.",
+"A switch confines broadcasts to the VLAN they came from, so only VLAN 10 devices receive it.",
+"Full duplex allows both directions at the same time.",
+"Line coding converts binary data into digital signals for transmission.",
+"Ethernet became the dominant LAN technology."
+];
+const AN=[1,2,3,4,5,6,7,8,9,10,11,12];const Q=[];D.forEach((a,n)=>a.forEach((q,k)=>Q.push({a:AN[n],n:k+1,q:q[0],o:q[1],c:q[2],e:E[Q.length]})));
+let i=0,ans={},sel={},last=-1;
+const $=id=>document.getElementById(id),c=$("c");
+function ok(k){const c=Q[k].c,a=ans[k];return Array.isArray(c)?a.length===c.length&&c.every(x=>a.includes(x)):a===c}
+function sc(){return Object.keys(ans).filter(ok).length}
+function show(){grid();c.className="card"+(i!==last?" in":"");last=i;
+  if(i>=Q.length){
+    const n=Object.keys(ans).length;
+    c.innerHTML='<div class="meta">Finished</div><h2>Your result</h2><div class="big">'+sc()+' / '+Q.length+'</div><p class="meta">'+n+' answered</p><div class="nav"><button class="btn alt" id="b">Review last question</button><button class="btn" id="r">Start again</button></div>';
+    $("b").onclick=()=>{i=Q.length-1;show()};$("r").onclick=()=>{i=0;ans={};sel={};show()};
+    $("pb").style.width="100%";$("score").textContent="Score: "+sc()+" / "+n;return}
+  const q=Q[i],done=ans[i]!==undefined;
+  c.innerHTML='<div class="meta">Question '+(i+1)+' of '+Q.length+' · Assignment '+q.a+', Q'+q.n+'</div><h2></h2><div id="os"></div><div class="nav"><button class="btn alt" id="p"'+(i?'':' disabled')+'>Previous</button><button class="btn" id="n">'+(i==Q.length-1?'Finish':'Next')+'</button></div>';
+  c.querySelector("h2").textContent=q.q;
+  const multi=Array.isArray(q.c),cs=[].concat(q.c),ch=[].concat(done?ans[i]:(sel[i]||[]));
+  if(multi&&!done){const h=document.createElement("div");h.className="meta h";h.textContent="More than one answer may be correct. Select all, then press Check answer.";$("os").before(h)}
+  q.o.forEach((t,j)=>{const b=document.createElement("button");b.className="opt";b.innerHTML='<span class="k">'+"ABCD"[j]+'</span><span></span>';b.lastChild.textContent=t;
+    if(done){b.disabled=true;if(cs.includes(j))b.classList.add("ok");else if(ch.includes(j))b.classList.add("no")}
+    else if(multi){if(ch.includes(j))b.classList.add("sel");b.onclick=()=>{const s=sel[i]||(sel[i]=[]),k=s.indexOf(j);k<0?s.push(j):s.splice(k,1);show()}}
+    else b.onclick=()=>{ans[i]=j;show()};
+    $("os").appendChild(b)});
+  if(multi&&!done){const k=document.createElement("button");k.className="btn";k.textContent="Check answer";k.disabled=!ch.length;k.onclick=()=>{ans[i]=sel[i].slice();show()};$("os").appendChild(k)}
+  if(done){const g=ok(i),f=document.createElement("div");f.className="fb "+(g?"gd":"bd");
+    const t=document.createElement("b");t.textContent=g?"Correct":"Incorrect";f.appendChild(t);
+    if(!g){const p=document.createElement("p");p.textContent="Correct answer: "+cs.map(j=>q.o[j]).join("; ");f.appendChild(p)}
+    const w=document.createElement("p");w.textContent="Why: "+q.e;f.appendChild(w);$("os").appendChild(f)}
+  $("p").onclick=()=>{i--;show()};$("n").onclick=()=>{i++;show()};
+  $("pb").style.width=(i/Q.length*100)+"%";
+  $("score").textContent="Score: "+sc()+" / "+Object.keys(ans).length;
+}
+function grid(){const g=$("g");g.innerHTML="<h3>Questions</h3><div class='gr'></div>";const r=g.lastChild;Q.forEach((q,k)=>{const b=document.createElement("button");b.textContent=k+1;b.className="gc"+(k===i?" cur":"")+(ans[k]!==undefined?(ok(k)?" ok":" no"):"");b.onclick=()=>{i=k;show();window.scrollTo({top:0,behavior:"smooth"})};r.appendChild(b)})}
+document.addEventListener("keydown",e=>{if(e.key==="ArrowRight"&&i<Q.length){i++;show()}else if(e.key==="ArrowLeft"&&i>0){i--;show()}});
+show();
+</script></body></html>
