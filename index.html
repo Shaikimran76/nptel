@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#2b3a4a">
 <title>Computer Networks – NPTEL Practice</title>
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
@@ -73,10 +75,72 @@ h2{font-size:20px}
 .gc.cur{outline:2px solid var(--btn);outline-offset:1px;font-weight:700}
 @media(max-width:860px){.wrap{grid-template-columns:1fr}.side{position:static}main{padding:0 10px;margin-top:12px}.card{padding:18px 16px}h2{font-size:18px}.gr{max-height:none}
 .nav{position:sticky;bottom:0;background:var(--card);margin:18px -16px 0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));border-radius:0 0 10px 10px}.btn{flex:1}}
+.mode{flex-wrap:wrap;display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:14px;color:var(--muted)}
+.mode .btn{padding:7px 14px;font-size:14px;white-space:nowrap}
+.mode select{font:inherit;flex:1;max-width:340px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--text)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== Responsive / device-compat layer ===== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+body{min-height:100vh;min-height:100dvh;overflow-x:hidden;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+button,select{touch-action:manipulation}
+h2,.opt span:last-child,.fb{overflow-wrap:anywhere;word-break:normal;min-width:0}
+.opt span:last-child{flex:1}
+header div{max-width:1040px}
+header b{font-size:clamp(15px,2.2vw + 10px,19px)}
+h2{font-size:clamp(17px,1.2vw + 14px,22px)}
+.card{width:100%}
+.wrap>div{min-width:0}
+/* hover only where a real pointer exists (no sticky hover on touch) */
+@media(hover:none){.opt:hover:not(:disabled){box-shadow:none;border-color:var(--line)}.btn:hover:not(:disabled){filter:none;box-shadow:none}.gc:hover{background:var(--card)}}
+/* touch devices: comfortable tap targets */
+@media(pointer:coarse){.opt{min-height:48px}.btn{min-height:46px}.gc{height:42px}.mode select{min-height:44px}.gr{grid-template-columns:repeat(auto-fill,minmax(42px,1fr))}}
+/* large desktops / TVs */
+@media(min-width:1400px){main,header div{max-width:1200px}.wrap{grid-template-columns:minmax(0,1fr) 320px}body{font-size:17px}.opt{padding:15px 16px}}
+@media(min-width:1900px){main,header div{max-width:1400px}body{font-size:19px}h2{font-size:26px}}
+/* laptops / small laptops */
+@media(max-width:1100px){.wrap{grid-template-columns:minmax(0,1fr) 240px;gap:16px}}
+/* tablets & phones: single column */
+@media(max-width:860px){
+ .wrap{grid-template-columns:minmax(0,1fr)!important;gap:14px}
+ .side{order:2;position:static!important;width:100%}
+ .gr{max-height:220px;overflow:auto}
+ .nav{margin-left:-16px;margin-right:-16px;z-index:5;box-shadow:0 -4px 12px rgba(16,24,40,.08)}
+ .mode{gap:8px}.mode select{max-width:none;min-width:0}
+}
+/* tablets in portrait: roomier */
+@media(min-width:601px) and (max-width:860px){main{max-width:720px;margin-left:auto;margin-right:auto}.card{padding:24px}}
+/* phones */
+@media(max-width:600px){
+ header{padding:12px 14px}header div{font-size:14px}
+ .mode{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+ .mode label{grid-column:1/-1;margin-bottom:-4px}
+ .mode select{grid-column:1/-1;width:100%}
+ .mode .btn{width:100%;padding:8px 10px}
+ .card{padding:16px 14px}
+ .nav{margin-left:-14px;margin-right:-14px;padding-left:14px;padding-right:14px}
+ .opt{padding:12px;gap:10px}
+ .big{font-size:34px}
+}
+@media(max-width:360px){.mode{grid-template-columns:1fr}.opt .k{width:24px;height:24px}header div{flex-direction:column;gap:6px}}
+/* phones in landscape: don't let the sticky bar eat the screen */
+@media(max-height:480px) and (orientation:landscape){.nav{position:static;box-shadow:none;margin-left:0;margin-right:0;padding-left:0;padding-right:0}header{padding:8px 14px}.gr{max-height:140px}}
+@media print{header,.side,.mode,.nav,.bar{display:none}body{background:#fff}.card{box-shadow:none;border:0}}
+
+/* hard fit: never wider than the screen */
+html{width:100%;max-width:100%;overflow-x:hidden;overflow-x:clip}
+body{width:100%;max-width:100%;overflow-x:hidden;overflow-x:clip;position:relative}
+header,main,.wrap,.card,.side,.mode,.bar,.nav{max-width:100%}
+header div,.mode,.nav{min-width:0}
+.mode select,.mode .btn,.btn{min-width:0;max-width:100%}
+.mode .btn{white-space:normal}
+.gr{grid-template-columns:repeat(auto-fill,minmax(40px,1fr))}
+@media(max-width:360px){header div{align-items:flex-start}#score{align-self:flex-start}}
+@media(max-width:600px){.mode{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+@media(max-width:340px){main{padding:0 6px}.card{padding:12px 10px}.nav{margin-left:-10px;margin-right:-10px;padding-left:10px;padding-right:10px}.btn{padding:8px 10px}}
 </style></head><body>
 <header><div><b>Computer Networks – NPTEL Practice</b><span id="score"></span></div></header>
-<main><div class="wrap"><div><div class="bar"><i id="pb"></i></div><div class="card" id="c"></div></div><aside class="side" id="g"></aside></div></main>
+<main><div class="wrap"><div><div class="mode"><label for="m">Practice:</label><select id="m"></select><button class="btn alt" id="j">Jumble options</button><button class="btn alt" id="r2" disabled>Reset order</button></div><div class="bar"><i id="pb"></i></div><div class="card" id="c"></div></div><aside class="side" id="g"></aside></div></main>
 <script>
 const D=[
 [["What is a computer network?",["A single computer system","A collection of interconnected devices that can communicate and share resources","A software program used to browse the internet","A type of computer virus"],1],
@@ -322,7 +386,105 @@ const E=[
 "Line coding converts binary data into digital signals for transmission.",
 "Ethernet became the dominant LAN technology."
 ];
-const AN=[1,2,3,4,5,6,7,8,9,10,11,12];const Q=[];D.forEach((a,n)=>a.forEach((q,k)=>Q.push({a:AN[n],n:k+1,q:q[0],o:q[1],c:q[2],e:E[Q.length]})));
+const AN=[1,2,3,4,5,6,7,8,9,10,11,12];const W=[
+[1,'Lecture 1a','On which date was the first ARPANET connection made between UCLA and SRI?',['October 29, 1969','January 1, 1983','February 28, 1990','March 1, 1974'],0,'The first ARPANET connection between UCLA and SRI was made on October 29, 1969.'],
+[1,'Lecture 1a','How many nodes did ARPANET have in 1969?',['2','4','13','23'],1,'ARPANET started with 4 nodes: UCLA, SRI, UCSB and Utah. It grew to 13 in 1970.'],
+[1,'Lecture 1a','Which company was tasked in 1968 with designing the interface processors for ARPANET?',['IBM','Xerox','Bolt Beranek and Newman (BBN)','Digital Equipment Corporation'],2,'BBN was given the job of designing the interfacing processors. IBM (SNA) and DEC (DECnet) built their own private networks later.'],
+[1,'Lecture 1b','Which protocol did ARPANET use before it moved to TCP/IP?',['NCP (Network Control Protocol)','HTTP','SMTP','XNS'],0,'ARPANET originally used NCP, which was monolithic. Diversity of networks led to the TCP/IP design.'],
+[1,'Lecture 1b','ARPANET switched to TCP/IP in:',['1969','1978','1983','1990'],2,'TCP and IP were split in 1978, and ARPANET switched to TCP/IP in 1983.'],
+[1,'Lecture 1b','Which network began to replace ARPANET as the core research backbone in 1986?',['BITNET','NSFNET','DECnet','Telenet'],1,'NSFNET was a high-speed academic backbone built by the National Science Foundation. ARPANET was decommissioned on Feb 28, 1990.'],
+[1,'Lecture 2a','In ADSL, the downstream rate is higher than the upstream rate. This is called:',['Symmetric access','Asymmetric access','Full duplex access','Broadcast access'],1,'ADSL is asymmetric: the lecture example shows about 52 Mbps downstream against 3.5 Mbps upstream.'],
+[1,'Lecture 2a','Which device sits at the ISP end in cable Internet access?',['DSLAM','CMTS (cable modem termination system)','ONT','Hub'],1,'Cable access uses a CMTS at the ISP. DSLAM is for DSL, and OLT/ONT are for fiber (FTTH).'],
+[1,'Lecture 2a','What is the speed of an OC-3 link?',['51.84 Mbps','155.52 Mbps','622.08 Mbps','2488.32 Mbps'],1,'OC-n is n x 51.84 Mbps, so OC-3 = 155.52 Mbps.'],
+[1,'Lecture 2b','Why does a full mesh topology not scale well?',['It needs only one link','Number of links grows very fast with the number of computers','It cannot be used with fiber','It has no addresses'],1,'A full mesh needs a link between every pair, so the link count grows roughly with the square of N.'],
+[1,'Lecture 2b','Why is addressing needed in a bus topology?',['Because the bus is broadcast, so only the intended receiver should consume the data','To select a route','To encrypt the data','To avoid cable loss'],0,'On a bus every station hears every transmission, so an address lets just the receiver accept the data.'],
+[1,'Lecture 2b','A network of networks connected together is called:',['A LAN','An intranet','An internetwork (Internet)','A bus'],2,'Inter-networks connect many networks. The global one is the Internet.'],
+[1,'Lecture 3a','With N = 3 hops, P = 10 packets and 1 ms per packet transmission, the total time in a store-and-forward network is:',['10 ms','12 ms','13 ms','30 ms'],1,'Total = (N + P - 1) x L/R = (3 + 10 - 1) x 1 ms = 12 ms.'],
+[1,'Lecture 3a','What happens to a packet arriving when the output queue of a router is full?',['It jumps the queue','It is dropped','It is stored on disk','It is sent back to the sender'],1,'Queues are finite. When the queue is full the arriving packet is dropped, which is packet loss.'],
+[1,'Lecture 3a','Transmission delay of a packet of L bits on a link of R bits/s is:',['L x R','R / L','L / R','d / s'],2,'Transmission delay = L / R, the time to push all bits onto the link. d / s is propagation delay.'],
+[1,'Lecture 3b','A 640,000-bit file is sent over a circuit-switched link with 24 TDM slots on 1.536 Mbps, and circuit setup takes 500 ms. Total time?',['10 s','10.5 s','24 s','0.5 s'],1,'Each circuit gets 1.536 Mbps / 24 = 64 kbps. 640,000 / 64,000 = 10 s, plus 0.5 s setup = 10.5 s.'],
+[1,'Lecture 3b','A 100 Mbps link, each circuit-switched user needs 25 Mbps. Can 30 users be supported?',['Yes','No, only 4 users can be supported','Yes, using TDM only','No, only 25 users can be supported'],1,'100 / 25 = 4 dedicated circuits. A 5th user would be blocked.'],
+[1,'Lecture 3b','Which of these needs connection setup before data transfer?',['Packet switching','Circuit switching','Both always','Neither'],1,'Circuit switching reserves a path first. Packet switching sends packets right away.'],
+[2,'Lecture 4a','A 100-byte packet is sent on a 500 kbps link over 1000 km at 2.8x10^8 m/s. The transmission delay is:',['1.6 ms','3.57 ms','5.17 ms','0.8 ms'],0,'L = 800 bits, R = 500,000 bps, so L/R = 1.6 ms. Propagation is 10^6 / 2.8x10^8 = 3.57 ms, total about 5.17 ms.'],
+[2,'Lecture 4a','Which delay is the time spent examining the header and looking up the forwarding table?',['Transmission delay','Propagation delay','Processing delay','Queuing delay'],2,'Processing delay covers header inspection, error checking and forwarding table lookup.'],
+[2,'Lecture 4a','Propagation delay is given by:',['L / R','d / s','R / d','L x d'],1,'t_prop = d / s, distance divided by propagation speed of the medium.'],
+[2,'Lecture 4b','A 1000-byte packet is sent at 4 Mbps. The transmission delay per packet is:',['0.25 ms','2 ms','4 ms','8 ms'],1,'8000 bits / 4,000,000 bps = 2 ms.'],
+[2,'Lecture 4b','In the lecture example (2 ms transmission, 5 ms propagation per link, 2 links, 1 router with 2 ms processing and 5 ms queuing), the end-to-end delay of the first packet is:',['14 ms','19 ms','21 ms','24 ms'],2,'2 x 2 + 2 x 5 + 5 + 2 = 21 ms. The two transmissions and two propagations are over two links.'],
+[2,'Lecture 4b','A path has links of 500 kbps, 2 Mbps and 1 Mbps. What is the throughput?',['500 kbps','1 Mbps','2 Mbps','3.5 Mbps'],0,'Throughput is the bottleneck rate, the minimum link rate. A 4 MB file then takes 32,000,000 / 500,000 = 64 s.'],
+[2,'Lecture 5a','Which OSI layer performs encryption, decryption and compression?',['Session','Presentation','Transport','Network'],1,'The Presentation layer handles data formatting, translation, encryption and compression.'],
+[2,'Lecture 5a','Which layer provides node-to-node delivery using MAC addressing and frames?',['Physical','Data Link','Network','Transport'],1,'The Data Link layer handles node-to-node delivery, framing and MAC addressing.'],
+[2,'Lecture 5a','What is the main benefit of layering in network design?',['Faster cables','Modularity: a change in one layer is transparent to the rest of the system','No need for protocols','More layers always mean lower delay'],1,'Layering gives explicit structure and modularization, like a change in a gate procedure not affecting airline ticketing.'],
+[2,'Lecture 5b','What is the data unit created when the link layer encapsulates a datagram?',['Segment','Message','Frame','Packet header only'],2,'Application gives a message, transport a segment, network a datagram, link a frame.'],
+[2,'Lecture 5b','Packet sniffing works because:',['Packets are always encrypted','A promiscuous network interface can read all packets on a broadcast medium','Routers copy all packets to everyone','IP addresses are secret'],1,'On shared media like Ethernet or WiFi, a promiscuous interface can record all passing packets, such as with Wireshark.'],
+[2,'Lecture 5b','Injecting a packet with a false source address is called:',['IP spoofing','Sniffing','Multiplexing','Fragmentation'],0,'IP spoofing forges the source address. It is different from DoS, which overwhelms a target with traffic.'],
+[2,'Lecture 6a','Which describes a server in the client-server paradigm?',['Intermittently connected with dynamic IP','Always-on host with a permanent IP address','Directly contacts other clients','Has no process running'],1,'Servers are always on with permanent IPs, often in data centers. Clients may be intermittent and dynamic.'],
+[2,'Lecture 6a','What does self scalability mean in peer-to-peer architecture?',['New peers add new service capacity as well as new demand','The server grows automatically','Peers never join or leave','Traffic is always encrypted'],0,'Each new peer brings capacity as well as demand, so the system scales itself.'],
+[2,'Lecture 6a','Which is an example of a P2P application?',['HTTP web browsing','IMAP email','BitTorrent file sharing','FTP'],2,'BitTorrent is the lecture example of P2P. HTTP, IMAP and FTP are client-server.'],
+[2,'Lecture 6b','In a communication session, which process initiates the communication?',['Server process','Client process','Router process','Kernel'],1,'The client process initiates, and the server process waits to be contacted.'],
+[2,'Lecture 6b','According to the lecture, which is a binary protocol?',['HTTP/1.1','DHCP','HTTP/2','Telnet'],2,'HTTP/2, HTTP/3, DNS and MQTT are binary. HTTP/1.1 and DHCP are text-based.'],
+[2,'Lecture 6b','A key advantage of text-based protocols over binary ones is:',['Smaller bandwidth use','Transparency and easy debugging by humans','Faster machine parsing','Header compression (HPACK)'],1,'Text protocols can be read and typed by hand. Binary protocols win on efficiency, speed and robustness.'],
+[3,'Lecture 7a','Response time for one object in non-persistent HTTP is:',['1 RTT + transmission time','2 RTT + transmission time','3 RTT + transmission time','RTT only'],1,'One RTT sets up TCP, one RTT for request and first bytes, plus file transmission time.'],
+[3,'Lecture 7b','A browser sends If-modified-since and its cached copy is current. The server replies:',['200 OK','301 Moved Permanently','304 Not Modified','404 Not Found'],2,'Conditional GET: 304 Not Modified is sent with no object, saving bandwidth.'],
+[3,'Lecture 8a','In HTTP/2, client-initiated streams use which stream IDs?',['Even numbers','Odd numbers','Only 0','Random'],1,'Clients use odd stream IDs (1, 3, 5...) and the server uses even ones.'],
+[3,'Lecture 8b','HTTP/3 uses QUIC, which runs on top of:',['TCP','UDP','ICMP','Ethernet directly'],1,'QUIC (RFC 9000) runs over UDP, so loss in one stream does not block others.'],
+[3,'Lecture 9a','SMTP uses TCP and which well-known port?',['21','25','80','110'],1,'SMTP servers listen on TCP port 25.'],
+[3,'Lecture 9b','Which mail access protocol leaves mail on the server and keeps folders synchronized?',['POP3','IMAP','SMTP','MIME'],1,'IMAP manages mail remotely. POP3 downloads it and has no remote folder management.'],
+[4,'Lecture 10a','Which DNS record maps a name to a 128-bit IPv6 address?',['A','AAAA','CNAME','NS'],1,'A is for IPv4, AAAA for IPv6, CNAME for aliases, NS for name servers.'],
+[4,'Lecture 10b','A DNS reply carries which identification value?',['A new random number','The same 16-bit identification as the query','The server IP','The source port only'],1,'The 16-bit identification lets the client match a reply with its query.'],
+[4,'Lecture 11a','In DASH, the manifest file gives the client:',['Only the video title','URLs of chunks at different encoding rates','The router table','The DNS cache'],1,'The client uses the manifest to request chunks at a rate its bandwidth can sustain.'],
+[4,'Lecture 11b','Why is a single mega-server a poor way to stream video?',['Single point of failure and congested long paths to distant clients','It cannot store video','It cannot use HTTP','It needs no bandwidth'],0,'It does not scale, so CDNs keep copies at many sites near users.'],
+[4,'Lecture 12','Which Wireshark display filter shows SYN-ACK packets?',['tcp.port == 80','http','tcp.flags.syn == 1 && tcp.flags.ack == 1','ip.addr == 192.168.1.1'],2,'The lecture filters SYN-ACK using both the SYN and ACK flags set to 1.'],
+[5,'Lecture 13a','Transport layer provides logical communication between:',['Hosts','Application processes on different hosts','Adjacent routers','Network interfaces'],1,'Network layer is host to host; transport layer is process to process.'],
+[5,'Lecture 13b','UDP segments with the same destination port but different source IPs go to:',['Different sockets','The same socket','Are dropped','The router'],1,'UDP demultiplexes using the destination port only.'],
+[5,'Lecture 14a','Which is NOT a reason UDP is used?',['No connection setup delay','Small header','Built-in congestion control','No connection state'],2,'UDP has no congestion control. That is a property, not an advantage.'],
+[5,'Lecture 14b','The length field in a UDP header gives the length in bytes of:',['Payload only','The UDP segment including header','The IP packet','The pseudo header'],1,'It counts the whole UDP segment, header and data.'],
+[5,'Lecture 15','What do raw sockets allow?',['Only reliable delivery','Seeing and creating packet headers yourself','Automatic header handling','Only UDP use'],1,'Raw sockets give lower-level access, bypassing the usual TCP/UDP abstraction.'],
+[6,'Lecture 16a','In a stop-and-wait protocol the sender:',['Sends many packets at once','Sends one packet then waits for a response','Never waits','Only uses NAKs'],1,'Stop and wait sends one packet, then waits for ACK or NAK.'],
+[6,'Lecture 16b','Sequence numbers in rdt 2.1 solve which problem?',['Packet loss','Duplicates after a corrupted ACK or NAK','Slow links','Large headers'],1,'If the ACK/NAK is garbled, the sender retransmits; the receiver uses the sequence number to discard the duplicate.'],
+[6,'Lecture 17a','In rdt 2.2 (NAK-free), a duplicate ACK is treated like:',['An ACK','A NAK, so the sender retransmits','A timeout reset','A new packet'],1,'The receiver ACKs the last good packet; a duplicate ACK means the next one was bad.'],
+[6,'Lecture 17b','Stop-and-wait: 1 Gbps link, 15 ms propagation, 8000-bit packet. Sender utilization is about:',['0.27','0.027','0.00027','0.8'],2,'L/R = 8 microseconds, RTT = 30 ms, so U = 0.008 / 30.008 = 0.00027.'],
+[6,'Lecture 18a','Go-Back-N with W = 4, 1 ms transmission and 2 ms propagation. Efficiency without loss is:',['40%','60%','80%','100%'],2,'Efficiency = W / (1 + 2a) = 4 / (1 + 4) = 0.8.'],
+[6,'Lecture 18b','Selective Repeat with sequence numbers 0 to 3 and window 3 fails because:',['ACKs are lost','The receiver may accept a retransmitted old packet as new data','The window is too small','The timer is too long'],1,'The window must be at most half the sequence space, or old and new packets look alike.'],
+[7,'Lecture 19a','A TCP sequence number refers to:',['The segment count','Byte-stream number of the first data byte in the segment','The port','The window size'],1,'TCP counts bytes, not segments. ACK gives the next byte expected.'],
+[7,'Lecture 19b','TCP timeout interval is:',['EstimatedRTT','EstimatedRTT + 4 x DevRTT','2 x SampleRTT','EstimatedRTT - DevRTT'],1,'A safety margin of 4 x DevRTT is added to EstimatedRTT.'],
+[7,'Lecture 20a','The typical EWMA weight alpha for EstimatedRTT is:',['0.25','0.125','0.5','1'],1,'EstimatedRTT = (1 - 0.125) x EstimatedRTT + 0.125 x SampleRTT.'],
+[7,'Lecture 20b','Correct order of TCP server calls:',['connect, send, close','socket, bind, listen, accept','accept, bind, socket, listen','listen, socket, accept, bind'],1,'The server creates a socket, binds, listens, then accepts connections.'],
+[7,'Lecture 21a','Congestion control differs from flow control because congestion is about:',['Receiver overload','Network overload','Disk speed','Encryption'],1,'Flow control protects the receiver; congestion control protects the network.'],
+[7,'Lecture 21b','On a loss event TCP sets ssthresh to:',['cwnd','Half of cwnd just before the loss','1 MSS','Double of cwnd'],1,'ssthresh = cwnd/2; exponential growth switches to linear at ssthresh.'],
+[8,'Lecture 22a','Which runs in a nanosecond time frame in hardware?',['Routing algorithm (control plane)','Forwarding (data plane)','Management','OSPF'],1,'Data plane forwarding is fast hardware; control plane runs in milliseconds.'],
+[8,'Lecture 22b','Destination 11001000 00010111 00011000 10101010 matches which interface? (00010* to 0, 00011000 to 1, 00011* to 2, else 3)',['0','1','2','3'],1,'Both 00011000 and 00011* match; the longest prefix, 00011000, gives interface 1.'],
+[8,'Lecture 23a','Head-of-line blocking at an input port means:',['The output is empty','The datagram at the queue front blocks those behind it','Packets are encrypted','Routers are overloaded'],1,'A blocked front datagram prevents others from moving forward.'],
+[8,'Lecture 23b','WFQ with weights 1, 2, 3 on a 6 Mbps link gives the weight-2 class:',['1 Mbps','2 Mbps','3 Mbps','6 Mbps'],1,'Share = 2 / (1 + 2 + 3) x 6 Mbps = 2 Mbps.'],
+[8,'Lecture 24a','Which IPv4 header field is decremented at each router?',['Protocol','TTL','Identifier','Total length'],1,'TTL drops by one per hop; at 0 the packet is discarded.'],
+[8,'Lecture 24b','DHCP message order is:',['Request, Offer, Discover, Ack','Discover, Offer, Request, Ack','Offer, Discover, Ack, Request','Discover, Request, Offer, Ack'],1,'The DORA sequence: Discover, Offer, Request, Acknowledgement.'],
+[9,'Lecture 25a','Which IPv4 option records the routers a packet passes?',['Timestamp','Record Route','NOP','EOL'],1,'Record Route (type 7) appends router addresses for diagnostics.'],
+[9,'Lecture 25b','Which is true of IPv6?',['It has a header checksum','Routers fragment packets','It has no header checksum','Header is 20 bytes'],2,'IPv6 has a fixed 40-byte header, no checksum and no router fragmentation.'],
+[9,'Lecture 26a','In static routing, routes:',['Change quickly with load','Change slowly, often by manual configuration','Use Dijkstra only','Are random'],1,'Static routes are manually set and change slowly.'],
+[9,'Lecture 26b','In the lecture Dijkstra example, D(v)=2, D(w)=5, D(x)=1 from u. Which node joins N first?',['v','w','x','y'],2,'The smallest estimate is D(x) = 1, so x is added first.'],
+[9,'Lecture 27a','Distance vector algorithms are:',['Centralized and synchronous','Iterative, asynchronous and distributed','Static only','Link state'],1,'Each node keeps exchanging distance vectors with neighbors until they converge.'],
+[9,'Lecture 27b','The RIP flush timer default is:',['30 s','180 s','240 s','15 s'],2,'Update 30 s, invalid 180 s, hold-down 180 s, flush 240 s.'],
+[10,'Lecture 28a','OSPF messages are carried:',['Over TCP','Over UDP','Directly in IP with protocol number 89','Over ICMP'],2,'OSPF uses IP protocol number 89, not TCP or UDP.'],
+[10,'Lecture 28b','Which OSPF router summarizes its area distances into the backbone?',['Internal router','Area border router','Local host','DNS server'],1,'Area border routers summarize and advertise area routes to the backbone.'],
+[10,'Lecture 29a','Autonomous System Numbers were extended by RFC 6793 to:',['8 bits','16 bits','32 bits','64 bits'],2,'ASNs started at 16 bits and were extended to 32 bits.'],
+[10,'Lecture 29b','Other routers in an AS learn the BGP path chosen by the gateway through:',['RIP','iBGP','ICMP','DHCP'],1,'The gateway advertises its chosen path inside the AS using iBGP.'],
+[10,'Lecture 30a','ICMP has IP protocol number:',['1','6','17','89'],0,'ICMP is protocol 1; TCP is 6, UDP is 17 and OSPF is 89.'],
+[10,'Lecture 30b','ICMPv6 type 128 is:',['Echo Request','Echo Reply','Neighbor Solicitation','Router Advertisement'],0,'128 is Echo Request, 129 Echo Reply, 135 Neighbor Solicitation, 134 Router Advertisement.'],
+[11,'Lecture 31a','Maximum efficiency of pure ALOHA is about:',['18%','37%','50%','100%'],0,'Pure ALOHA is about 18%; slotted ALOHA is about 37%.'],
+[11,'Lecture 31b','TDMA with 6 stations where only 3 have data: what fraction of slots is used?',['25%','33%','50%','100%'],2,'Slots of idle stations go unused, so 3 of 6 slots carry data.'],
+[11,'Lecture 32a','After detecting a collision, a CSMA/CD station:',['Keeps sending','Stops, sends a jam signal and backs off randomly','Waits for a token','Switches to FDMA'],1,'It aborts, jams, waits a random backoff and retransmits.'],
+[11,'Lecture 32b','Which technology uses a polling MAC protocol?',['Ethernet','Bluetooth','Pure ALOHA','CSMA/CD'],1,'Bluetooth uses polling, where a master invites devices to transmit.'],
+[11,'Lecture 33a','Error correction differs from error detection because correction:',['Only reports errors','Recovers the correct data','Is not possible','Needs no extra bits'],1,'Detection says data is bad; correction recovers it, using extra bits.'],
+[11,'Lecture 33b','CRC with data 1101 and generator 1011 gives the transmitted frame:',['1101001','1101110','1011001','1101000'],0,'Dividing 1101000 by 1011 gives remainder 001, so the frame is 1101001.'],
+[12,'Lecture 34a','Which device does NOT have a MAC address?',['Host','Router interface','Link-layer switch','NIC'],2,'Switches forward transparently and have no MAC address of their own.'],
+[12,'Lecture 34b','Ethernet was developed by:',['Cerf and Kahn','Metcalfe and Boggs','Tomlinson and Crocker','Kurose and Ross'],1,'Bob Metcalfe and David Boggs developed Ethernet in the 1970s.'],
+[12,'Lecture 35a','If an Ethernet frame fails the CRC check, the receiver:',['Sends a NAK','Discards the frame silently','Retransmits it','Sends ICMP'],1,'Ethernet is connectionless and unreliable: bad frames are dropped with no ACKs.'],
+[12,'Lecture 35b','Each VLAN acts as its own:',['Collision domain','Broadcast domain','DNS zone','Autonomous system'],1,'VLANs separate broadcast domains; traffic between them needs a Layer 3 device.'],
+[12,'Lecture 36a','Which signal property is signal strength?',['Amplitude','Frequency','Phase','Wavelength'],0,'Amplitude is strength, frequency is cycles per second, phase is waveform position.'],
+[12,'Lecture 36b','In FSK, what is varied?',['Amplitude','Frequency','Phase','Nothing'],1,'ASK varies amplitude, FSK frequency and PSK phase.']
+];
+const ALL=[];D.forEach((a,n)=>a.forEach((q,k)=>ALL.push({a:AN[n],n:k+1,q:q[0],o:q[1],c:q[2],e:E[ALL.length]})));
+W.forEach(w=>ALL.push({w:w[0],l:w[1],q:w[2],o:w[3],c:w[4],e:w[5]}));
+let Q=ALL.slice();
 let i=0,ans={},sel={},last=-1;
 const $=id=>document.getElementById(id),c=$("c");
 function ok(k){const c=Q[k].c,a=ans[k];return Array.isArray(c)?a.length===c.length&&c.every(x=>a.includes(x)):a===c}
@@ -334,7 +496,7 @@ function show(){grid();c.className="card"+(i!==last?" in":"");last=i;
     $("b").onclick=()=>{i=Q.length-1;show()};$("r").onclick=()=>{i=0;ans={};sel={};show()};
     $("pb").style.width="100%";$("score").textContent="Score: "+sc()+" / "+n;return}
   const q=Q[i],done=ans[i]!==undefined;
-  c.innerHTML='<div class="meta">Question '+(i+1)+' of '+Q.length+' · Assignment '+q.a+', Q'+q.n+'</div><h2></h2><div id="os"></div><div class="nav"><button class="btn alt" id="p"'+(i?'':' disabled')+'>Previous</button><button class="btn" id="n">'+(i==Q.length-1?'Finish':'Next')+'</button></div>';
+  c.innerHTML='<div class="meta">Question '+(i+1)+' of '+Q.length+' · '+(q.w?'Week '+q.w+' · '+q.l:'Assignment '+q.a+', Q'+q.n)+'</div><h2></h2><div id="os"></div><div class="nav"><button class="btn alt" id="p"'+(i?'':' disabled')+'>Previous</button><button class="btn" id="n">'+(i==Q.length-1?'Finish':'Next')+'</button></div>';
   c.querySelector("h2").textContent=q.q;
   const multi=Array.isArray(q.c),cs=[].concat(q.c),ch=[].concat(done?ans[i]:(sel[i]||[]));
   if(multi&&!done){const h=document.createElement("div");h.className="meta h";h.textContent="More than one answer may be correct. Select all, then press Check answer.";$("os").before(h)}
@@ -348,11 +510,27 @@ function show(){grid();c.className="card"+(i!==last?" in":"");last=i;
     const t=document.createElement("b");t.textContent=g?"Correct":"Incorrect";f.appendChild(t);
     if(!g){const p=document.createElement("p");p.textContent="Correct answer: "+cs.map(j=>q.o[j]).join("; ");f.appendChild(p)}
     const w=document.createElement("p");w.textContent="Why: "+q.e;f.appendChild(w);$("os").appendChild(f)}
-  $("p").onclick=()=>{i--;show()};$("n").onclick=()=>{i++;show()};
+  $("p").onclick=()=>{i--;show();window.scrollTo({top:0})};$("n").onclick=()=>{i++;show();window.scrollTo({top:0})};
   $("pb").style.width=(i/Q.length*100)+"%";
   $("score").textContent="Score: "+sc()+" / "+Object.keys(ans).length;
 }
 function grid(){const g=$("g");g.innerHTML="<h3>Questions</h3><div class='gr'></div>";const r=g.lastChild;Q.forEach((q,k)=>{const b=document.createElement("button");b.textContent=k+1;b.className="gc"+(k===i?" cur":"")+(ans[k]!==undefined?(ok(k)?" ok":" no"):"");b.onclick=()=>{i=k;show();window.scrollTo({top:0,behavior:"smooth"})};r.appendChild(b)})}
 document.addEventListener("keydown",e=>{if(e.key==="ArrowRight"&&i<Q.length){i++;show()}else if(e.key==="ArrowLeft"&&i>0){i--;show()}});
+const wk=[...new Set(W.map(w=>w[0]))],m=$("m");
+m.innerHTML='<option value="all">All questions ('+ALL.length+')</option><option value="a">NPTEL assignments (120)</option>'+wk.map(n=>'<option value="w'+n+'">Week '+n+' lectures ('+W.filter(w=>w[0]==n).length+')</option>').join("");
+m.onchange=()=>{const v=m.value;Q=v=="all"?ALL.slice():v=="a"?ALL.filter(q=>q.a):ALL.filter(q=>q.w==v.slice(1));i=0;ans={};sel={};last=-1;show()};
+let jm=false;const jb=$("j");
+const jgo=on=>{jm=on;ALL.forEach(q=>{if(!q.o0){q.o0=q.o;q.c0=q.c}
+ if(!jm){q.o=q.o0;q.c=q.c0;return}
+ const p=q.o0.map((_,j)=>j);for(let x=p.length-1;x>0;x--){const y=Math.floor(Math.random()*(x+1));[p[x],p[y]]=[p[y],p[x]]}
+ q.o=p.map(j=>q.o0[j]);q.c=Array.isArray(q.c0)?q.c0.map(x=>p.indexOf(x)):p.indexOf(q.c0)});
+ jb.textContent=jm?"Jumble again":"Jumble options";$("r2").disabled=!jm;i=0;ans={};sel={};last=-1;show()};
+jb.onclick=()=>jgo(true);$("r2").onclick=()=>jgo(false);
 show();
+/* swipe left/right to change question on touch screens */
+(()=>{let x0=null,y0=0;const el=document.getElementById("c");
+el.addEventListener("touchstart",e=>{if(e.touches.length!==1){x0=null;return}x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+el.addEventListener("touchend",e=>{if(x0===null)return;const t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;x0=null;
+ if(Math.abs(dx)<70||Math.abs(dx)<Math.abs(dy)*1.8)return;
+ if(dx<0&&i<Q.length){i++;show()}else if(dx>0&&i>0){i--;show()}},{passive:true});})();
 </script></body></html>
